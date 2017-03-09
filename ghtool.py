@@ -3,11 +3,9 @@ import requests
 import json
 import argparse
 import sys
-from multiprocessing.pool import ThreadPool
 from concurrent.futures import ThreadPoolExecutor
 import urllib
 import itertools
-import math
 
 # Page size for the /repositories endpoint.
 REPOSITORIES_PAGE_SIZE = 100
@@ -128,8 +126,6 @@ class Ghtool(object):
         exit(error_code)
 
     def handle_desc(self, ids):
-        p = ThreadPool(NUM_THREADS)
-
         def worker_function(id):
             return github_request("/repositories/{0}".format(id))
 
